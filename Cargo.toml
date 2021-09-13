@@ -1,0 +1,28 @@
+[package]
+name = "cubeL4"
+version = "0.1.0"
+edition = "2021"
+
+# Note: I don't think we actually want this to be a staticlib, since then we will be forced to define a panic handler.
+# It seems to work OK building with the default option, and then being reused in the end application as a dependency
+# crate.
+#[lib]
+#crate-type = ["staticlib"]
+
+[dependencies.libc]
+version = "*"
+git = "https://github.com/apullin/libc"
+branch = "feature/arm_none_types"
+
+[build-dependencies]
+cc = { version = "1.0.70", features = ["parallel"] }
+pkg-config = "0.3.19"
+
+#[[example]]
+#name = "basic"
+
+[dev-dependencies]
+cortex-m = "0.7.3"
+cortex-m-rt = "0.7.0"
+cortex-m-semihosting = "0.3.7"
+panic-halt = "0.2.0"
